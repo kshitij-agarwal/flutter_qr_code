@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
 void main() => runApp(MyApp());
@@ -35,6 +36,14 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            FloatingActionButton(
+              onPressed: () {
+                scannerMode();
+              },
+              child: Icon(Icons.scanner),
+            ),
+          ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
@@ -46,6 +55,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
     );
   }
+
 
   Future _displayQRCode(String data) {
     return showDialog(
@@ -80,5 +90,11 @@ class _MyHomePageState extends State<MyHomePage> {
                 ]),
           );
         });
+  }
+
+  Future scannerMode() async {
+    String code = await FlutterBarcodeScanner.scanBarcode(
+        "#009742", "cancel", true, ScanMode.BARCODE);
+    
   }
 }
